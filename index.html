@@ -28,23 +28,17 @@ body{
   justify-content:center;
 }
 
-/* ================= GLOBAL STAGE ================= */
-
 .stage{
   position:fixed;
   inset:0;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   text-align:center;
   padding:8vw;
-
   opacity:0;
   visibility:hidden;
   pointer-events:none;
-
   transition:opacity .6s ease;
   cursor:pointer;
 }
@@ -55,16 +49,8 @@ body{
   pointer-events:auto;
 }
 
-.stage.bg-white{
-  background:#ffffff;
-}
-
-.stage.bg-black{
-  background:#000000;
-}
-
-
-/* ================= START ================= */
+.stage.bg-white{ background:#ffffff; }
+.stage.bg-black{ background:#000000; }
 
 #stageStart p{
   color:#9a9a9a;
@@ -73,23 +59,15 @@ body{
   font-weight:500;
 }
 
-
-/* ================= SENTENCE ================= */
-
 #stageSentence .sentence-text{
   color:#1a1a1a;
   font-size:19px;
   font-weight:500;
   line-height:1.6;
-
   max-width:520px;
-
   opacity:0;
   transform:translateY(8px);
-
-  transition:
-    opacity .5s ease,
-    transform .5s ease;
+  transition:opacity .5s ease, transform .5s ease;
 }
 
 #stageSentence .sentence-text.show{
@@ -102,38 +80,25 @@ body{
   bottom:9%;
   left:0;
   right:0;
-
   color:#c7c7c7;
   font-size:11px;
   letter-spacing:.5px;
 }
 
-
-/* ================= BLACK TRANSITION ================= */
-
 #stageBlack::after{
   content:"";
-
   width:6px;
   height:6px;
-
   border-radius:50%;
-
   background:#ffffff;
   opacity:.6;
 }
 
-
-/* ================= LYRIC ================= */
-
 #stageLyric{
   overflow:hidden;
-
   cursor:default;
-
   user-select:none;
   -webkit-user-select:none;
-
   touch-action:none;
 }
 
@@ -147,17 +112,11 @@ body{
   font-size:9vw;
   font-weight:800;
   line-height:1.05;
-
   color:#111111;
-
   opacity:0;
   transform:scale(.7);
-
   display:inline-block;
-
-  transition:
-    opacity .5s ease,
-    transform .5s cubic-bezier(.2,.9,.3,1.2);
+  transition:opacity .5s ease, transform .5s cubic-bezier(.2,.9,.3,1.2);
 }
 
 .lyric-line.show{
@@ -166,13 +125,8 @@ body{
 }
 
 @media(min-width:600px){
-  .lyric-line{
-    font-size:52px;
-  }
+  .lyric-line{ font-size:52px; }
 }
-
-
-/* ================= PHOTO ================= */
 
 #stagePhoto{
   flex-direction:column;
@@ -181,21 +135,13 @@ body{
 
 .photo-card{
   width:min(78vw,340px);
-
   border-radius:14px;
   overflow:hidden;
-
   box-shadow:0 20px 40px #00000022;
-
   margin-bottom:18px;
-
   opacity:0;
   transform:translateY(18px) rotate(-2deg);
-
-  transition:
-    opacity .6s ease,
-    transform .6s cubic-bezier(.2,.9,.3,1.1);
-
+  transition:opacity .6s ease, transform .6s cubic-bezier(.2,.9,.3,1.1);
   background:#f2f2f2;
 }
 
@@ -207,321 +153,141 @@ body{
 .photo-card img{
   width:100%;
   display:block;
-
   aspect-ratio:4/5;
   object-fit:cover;
 }
 
 .photo-caption{
   color:#8a8a8a;
-
   font-size:13px;
-
   margin-top:2px;
   margin-bottom:0;
-
   opacity:0;
-
   transition:opacity .5s ease .15s;
-
   min-height:18px;
 }
 
-.photo-caption.show{
-  opacity:1;
-}
+.photo-caption.show{ opacity:1; }
 
 .photo-dots{
   display:flex;
   gap:6px;
-
   margin-top:16px;
-
   opacity:0;
-
   transition:opacity .5s ease;
 }
 
-.photo-dots.show{
-  opacity:1;
-}
+.photo-dots.show{ opacity:1; }
 
 .photo-dots span{
   width:6px;
   height:6px;
-
   border-radius:50%;
-
   background:#e2e2e2;
   transition:background .3s ease;
 }
 
-.photo-dots span.on{
-  background:#b7b7b7;
-}
+.photo-dots span.on{ background:#b7b7b7; }
 
 .replay-btn{
   margin-top:18px;
-
   border:1px solid #dcdcdc;
   background:#ffffff;
-
   color:#666666;
-
   font-size:12px;
-
   padding:9px 18px;
-
   border-radius:30px;
-
   cursor:pointer;
-
   opacity:0;
-
   transition:opacity .6s ease .4s;
 }
 
-.replay-btn.show{
-  opacity:1;
-}
-
-
-/* ================= HEART ================= */
+.replay-btn.show{ opacity:1; }
 
 .heart{
   position:fixed;
-
   bottom:-30px;
-
   font-size:18px;
-
   opacity:.75;
-
   animation:rise linear forwards;
-
   pointer-events:none;
-
   z-index:50;
 }
 
 @keyframes rise{
-
-  from{
-    transform:translateY(0) rotate(0);
-    opacity:0;
-  }
-
-  15%{
-    opacity:.75;
-  }
-
-  to{
-    transform:translateY(-110vh) rotate(25deg);
-    opacity:0;
-  }
-
+  from{ transform:translateY(0) rotate(0); opacity:0; }
+  15%{ opacity:.75; }
+  to{ transform:translateY(-110vh) rotate(25deg); opacity:0; }
 }
 </style>
 </head>
 
 <body>
 
+<audio id="bgMusic" src="music.mp3" preload="auto"></audio>
 
-<!-- ================= MUSIC ================= -->
-
-<audio
-  id="bgMusic"
-  src="music.mp3"
-  preload="auto">
-</audio>
-
-
-<!-- ================= 1. START ================= -->
-
-<div
-  class="stage bg-white active"
-  id="stageStart">
-
+<div class="stage bg-white active" id="stageStart">
   <p>tekan untuk lanjut</p>
-
 </div>
 
-
-<!-- ================= 2. SENTENCES ================= -->
-
-<div
-  class="stage bg-white"
-  id="stageSentence">
-
-  <div
-    class="sentence-text"
-    id="sentenceText">
-  </div>
-
-  <div class="tap-hint">
-    tap untuk lanjut
-  </div>
-
+<div class="stage bg-white" id="stageSentence">
+  <div class="sentence-text" id="sentenceText"></div>
+  <div class="tap-hint">tap untuk lanjut</div>
 </div>
 
+<div class="stage bg-black" id="stageBlack"></div>
 
-<!-- ================= 3. BLACK TRANSITION ================= -->
-
-<div
-  class="stage bg-black"
-  id="stageBlack">
-</div>
-
-
-<!-- ================= 4. LYRIC ================= -->
-
-<div
-  class="stage bg-white"
-  id="stageLyric">
-
+<div class="stage bg-white" id="stageLyric">
   <div class="lyric-wrap">
-
-    <span
-      class="lyric-line"
-      id="lyricLine">
-    </span>
-
+    <span class="lyric-line" id="lyricLine"></span>
   </div>
-
 </div>
 
-
-<!-- ================= 5. PHOTO ================= -->
-
-<div
-  class="stage bg-white"
-  id="stagePhoto">
-
-  <div
-    class="photo-card"
-    id="photoCard">
-
-    <img
-      id="photoImg"
-      src=""
-      alt="">
-
+<div class="stage bg-white" id="stagePhoto">
+  <div class="photo-card" id="photoCard">
+    <img id="photoImg" src="" alt="">
   </div>
-
-  <p
-    class="photo-caption"
-    id="photoCaption">
-  </p>
-
-  <div
-    class="photo-dots"
-    id="photoDots">
-
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-
+  <p class="photo-caption" id="photoCaption"></p>
+  <div class="photo-dots" id="photoDots">
+    <span></span><span></span><span></span><span></span>
   </div>
-
-  <button
-    class="replay-btn"
-    id="replayBtn">
-
-    ↻ ulangi dari awal
-
-  </button>
-
+  <button class="replay-btn" id="replayBtn">↻ ulangi dari awal</button>
 </div>
-
 
 <script>
 
-/* =====================================================
-   KALIMAT PEMBUKA
-   ===================================================== */
-
 const SENTENCES = [
-
   "aku sebenarnya nggak tahu harus mulai dari mana",
-
   "tapi aku cuma mau kamu tahu satu hal",
-
   "kamu itu salah satu hal terbaik yang pernah aku temui",
-
   "makasih udah jadi bagian dari cerita aku, Opie",
-
   "ini bukan cuma pesan biasa..."
-
 ];
-
-
-/* =====================================================
-   LIRIK
-   ===================================================== */
 
 const LYRIC_LINES = [
-
   "melihatmu bersemi dan bermekaran",
-
   "tawa candamu berikan kekuatan",
-
   "sisa hariku pagi berganti waktu",
-
   "memelukmu",
-
   "kita kan tua dan kehilangan pegangan",
-
   "lihat senyummu memberikan kekuatan",
-
   "sisa nafasku cinta tak kenal"
-
 ];
 
-/* Detik kemunculan tiap baris di atas (dihitung dari saat
-   music.mp3 mulai diputar). Diambil dari titik-titik jeda napas
-   antar frasa pada lagunya — baris pertama "melihatmu..." muncul
-   tepat setelah intro instrumental singkat selesai dan nyanyian
-   dimulai. Kalau merasa ada baris yang muncul kurang pas, angka
-   di bawah ini bisa kamu geser sendiri (dalam detik, boleh pakai
-   koma desimal). */
-const LYRIC_TIMES = [1.2, 8.57, 16.61, 24.91, 31.99, 40.08, 47.33];
+/* Detik kemunculan tiap baris (dihitung dari saat music.mp3 mulai
+   diputar), diambil dari titik jeda napas antar frasa di lagunya.
+   Geser sendiri angkanya kalau ada yang kurang pas. */
+const LYRIC_TIMES = [1.3, 10.67, 18.44, 27.16, 36.33, 47.57, 54.68];
 
-/* Detik saat halaman pindah dari lirik ke foto — diset menjelang
-   lagu benar-benar habis (durasi lagu ±51.6 detik). */
-const PHOTO_STAGE_TIME = 50.5;
-
-
-/* =====================================================
-   FOTO
-   Ganti "src" dengan nama file fotomu sendiri
-   (upload foto1.jpg, foto2.jpg, dst ke folder yang sama
-   dengan file HTML ini), dan ganti caption sesuai momennya.
-   ===================================================== */
+/* Detik pindah ke halaman foto — menjelang lagu (±65.5 detik) habis. */
+const PHOTO_STAGE_TIME = 63.5;
 
 const PHOTOS = [
-  {
-    src: "https://placehold.co/600x750/f7c8bd/9c4c4c?text=Foto+1",
-    caption: "Haii"
-  },
-  {
-    src: "https://placehold.co/600x750/f7c8bd/9c4c4c?text=Foto+2",
-    caption: "Opie"
-  },
-  {
-    src: "https://placehold.co/600x750/f7c8bd/9c4c4c?text=Foto+3",
-    caption: "I miss u"
-  },
-  {
-    src: "https://placehold.co/600x750/f7c8bd/9c4c4c?text=Foto+4",
-    caption: "I love u"
-  }
+  { src: "https://placehold.co/600x750/f7c8bd/9c4c4c?text=Foto+1", caption: "Ganti dengan keterangan foto pertama" },
+  { src: "https://placehold.co/600x750/f7c8bd/9c4c4c?text=Foto+2", caption: "Ganti dengan keterangan foto kedua" },
+  { src: "https://placehold.co/600x750/f7c8bd/9c4c4c?text=Foto+3", caption: "Ganti dengan keterangan foto ketiga" },
+  { src: "https://placehold.co/600x750/f7c8bd/9c4c4c?text=Foto+4", caption: "Ganti dengan keterangan foto keempat" }
 ];
-
-
-/* =====================================================
-   ELEMEN
-   ===================================================== */
 
 const stageStart    = document.getElementById("stageStart");
 const stageSentence = document.getElementById("stageSentence");
@@ -537,18 +303,8 @@ const photoDots     = document.getElementById("photoDots");
 const replayBtn     = document.getElementById("replayBtn");
 const bgMusic       = document.getElementById("bgMusic");
 
-
-/* =====================================================
-   STATE
-   ===================================================== */
-
 let sentenceIndex = 0;
 let photoIndex = 0;
-
-
-/* =====================================================
-   HELPER: pindah stage & hati melayang
-   ===================================================== */
 
 function goToStage(stageEl){
   document.querySelectorAll(".stage").forEach(function(s){
@@ -568,20 +324,10 @@ function spawnHeart(){
   setTimeout(function(){ h.remove(); }, 9500);
 }
 
-
-/* =====================================================
-   1. START -> lanjut ke kalimat pembuka
-   ===================================================== */
-
 stageStart.addEventListener("click", function(){
   goToStage(stageSentence);
   showSentence(0);
 });
-
-
-/* =====================================================
-   2. KALIMAT PEMBUKA (tap untuk lanjut tiap kalimat)
-   ===================================================== */
 
 function showSentence(i){
   sentenceText.classList.remove("show");
@@ -593,7 +339,6 @@ function showSentence(i){
 
 stageSentence.addEventListener("click", function(){
   sentenceIndex++;
-
   if(sentenceIndex < SENTENCES.length){
     showSentence(sentenceIndex);
   } else {
@@ -605,17 +350,9 @@ stageSentence.addEventListener("click", function(){
   }
 });
 
-
-/* =====================================================
-   4. LIRIK (otomatis berjalan, musik mulai di sini)
-   ===================================================== */
-
 function startLyrics(){
   bgMusic.currentTime = 0;
-  bgMusic.play().catch(function(){
-    /* Browser mungkin memblokir autoplay bersuara,
-       lagu tetap akan jalan karena ini dipicu dari tap user. */
-  });
+  bgMusic.play().catch(function(){});
 
   LYRIC_TIMES.forEach(function(t, i){
     setTimeout(function(){
@@ -637,14 +374,8 @@ function startLyrics(){
   }, PHOTO_STAGE_TIME * 1000);
 }
 
-
-/* =====================================================
-   5. FOTO (tap untuk lanjut ke foto berikutnya)
-   ===================================================== */
-
 function showPhoto(i){
   photoIndex = i;
-
   photoCard.classList.remove("show");
   photoCaption.classList.remove("show");
 
@@ -652,11 +383,9 @@ function showPhoto(i){
     photoImg.src = PHOTOS[i].src;
     photoImg.alt = PHOTOS[i].caption;
     photoCaption.textContent = PHOTOS[i].caption;
-
     photoCard.classList.add("show");
     photoCaption.classList.add("show");
     photoDots.classList.add("show");
-
     updateDots(i);
     spawnHeart();
   }, 250);
@@ -682,30 +411,21 @@ stagePhoto.addEventListener("click", function(e){
   }
 });
 
-
-/* =====================================================
-   ULANGI DARI AWAL
-   ===================================================== */
-
 replayBtn.addEventListener("click", function(e){
   e.stopPropagation();
-
   bgMusic.pause();
   bgMusic.currentTime = 0;
-
   sentenceIndex = 0;
   photoIndex = 0;
-
   sentenceText.classList.remove("show");
   lyricLine.classList.remove("show");
   photoCard.classList.remove("show");
   photoCaption.classList.remove("show");
   photoDots.classList.remove("show");
   replayBtn.classList.remove("show");
-
   goToStage(stageStart);
 });
 
 </script>
 </body>
-</html>
+    </html>
