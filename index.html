@@ -18,7 +18,7 @@ html,body{
   height:100%;
   overflow:hidden;
   font-family:"Plus Jakarta Sans",sans-serif;
-  background:#ffffff;
+  background:#fff;
 }
 
 body{
@@ -27,6 +27,8 @@ body{
   align-items:center;
   justify-content:center;
 }
+
+/* ================= STAGE ================= */
 
 .stage{
   position:fixed;
@@ -40,7 +42,6 @@ body{
   visibility:hidden;
   pointer-events:none;
   transition:opacity .6s ease;
-  cursor:pointer;
 }
 
 .stage.active{
@@ -49,8 +50,15 @@ body{
   pointer-events:auto;
 }
 
-.stage.bg-white{ background:#ffffff; }
-.stage.bg-black{ background:#000000; }
+.stage.bg-white{
+  background:#fff;
+}
+
+.stage.bg-black{
+  background:#000;
+}
+
+/* ================= START ================= */
 
 #stageStart p{
   color:#9a9a9a;
@@ -58,6 +66,8 @@ body{
   letter-spacing:.5px;
   font-weight:500;
 }
+
+/* ================= SENTENCE ================= */
 
 #stageSentence .sentence-text{
   color:#1a1a1a;
@@ -67,7 +77,7 @@ body{
   max-width:520px;
   opacity:0;
   transform:translateY(8px);
-  transition:opacity .5s ease, transform .5s ease;
+  transition:opacity .5s ease,transform .5s ease;
 }
 
 #stageSentence .sentence-text.show{
@@ -85,14 +95,18 @@ body{
   letter-spacing:.5px;
 }
 
+/* ================= BLACK ================= */
+
 #stageBlack::after{
   content:"";
   width:6px;
   height:6px;
   border-radius:50%;
-  background:#ffffff;
+  background:#fff;
   opacity:.6;
 }
+
+/* ================= LYRICS ================= */
 
 #stageLyric{
   overflow:hidden;
@@ -112,11 +126,13 @@ body{
   font-size:9vw;
   font-weight:800;
   line-height:1.05;
-  color:#111111;
+  color:#111;
   opacity:0;
   transform:scale(.7);
   display:inline-block;
-  transition:opacity .5s ease, transform .5s cubic-bezier(.2,.9,.3,1.2);
+  transition:
+    opacity .5s ease,
+    transform .5s cubic-bezier(.2,.9,.3,1.2);
 }
 
 .lyric-line.show{
@@ -125,84 +141,187 @@ body{
 }
 
 @media(min-width:600px){
-  .lyric-line{ font-size:52px; }
+  .lyric-line{
+    font-size:52px;
+  }
 }
+
+/* ================= INSTAGRAM STYLE ================= */
 
 #stagePhoto{
+  background:#fff;
+  padding:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.ig-post{
+  width:min(100%,430px);
+  height:100%;
+  background:#fff;
+  display:flex;
   flex-direction:column;
-  padding:6vw;
+  justify-content:center;
 }
 
-.photo-card{
-  width:min(78vw,340px);
-  border-radius:14px;
-  overflow:hidden;
-  box-shadow:0 20px 40px #00000022;
-  margin-bottom:18px;
-  opacity:0;
-  transform:translateY(18px) rotate(-2deg);
-  transition:opacity .6s ease, transform .6s cubic-bezier(.2,.9,.3,1.1);
-  background:#f2f2f2;
+/* Header */
+
+.ig-header{
+  height:58px;
+  display:flex;
+  align-items:center;
+  padding:0 14px;
+  border-bottom:1px solid #eee;
+  flex-shrink:0;
 }
 
-.photo-card.show{
-  opacity:1;
-  transform:translateY(0) rotate(-2deg);
+.profile{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#ffb6c1,#d9a7ff,#8fd3ff);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  font-weight:700;
+  font-size:14px;
+  margin-right:10px;
 }
 
-.photo-card img{
-  width:100%;
-  display:block;
-  aspect-ratio:4/5;
-  object-fit:cover;
-}
-
-.photo-caption{
-  color:#8a8a8a;
+.username{
   font-size:13px;
-  margin-top:2px;
-  margin-bottom:0;
-  opacity:0;
-  transition:opacity .5s ease .15s;
-  min-height:18px;
+  font-weight:700;
+  color:#222;
 }
 
-.photo-caption.show{ opacity:1; }
+/* Photo */
+
+.ig-photo-area{
+  width:100%;
+  position:relative;
+  background:#f4f4f4;
+  overflow:hidden;
+}
+
+#photoImg{
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  display:block;
+  opacity:0;
+  transform:scale(1.03);
+  transition:
+    opacity .45s ease,
+    transform .55s ease;
+}
+
+#photoImg.show{
+  opacity:1;
+  transform:scale(1);
+}
+
+/* Dots */
 
 .photo-dots{
+  position:absolute;
+  bottom:10px;
+  left:0;
+  right:0;
   display:flex;
-  gap:6px;
-  margin-top:16px;
-  opacity:0;
-  transition:opacity .5s ease;
+  justify-content:center;
+  gap:5px;
 }
-
-.photo-dots.show{ opacity:1; }
 
 .photo-dots span{
   width:6px;
   height:6px;
   border-radius:50%;
-  background:#e2e2e2;
-  transition:background .3s ease;
+  background:#ffffffaa;
+  transition:.25s ease;
 }
 
-.photo-dots span.on{ background:#b7b7b7; }
+.photo-dots span.on{
+  background:#fff;
+  transform:scale(1.15);
+}
+
+/* Arrow */
+
+.photo-arrow{
+  position:absolute;
+  right:12px;
+  top:50%;
+  transform:translateY(-50%);
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  background:#00000055;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:18px;
+  opacity:.8;
+}
+
+/* Bottom */
+
+.ig-bottom{
+  padding:10px 14px 12px;
+  text-align:left;
+}
+
+.ig-icons{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  font-size:25px;
+  margin-bottom:8px;
+}
+
+.ig-icons span{
+  cursor:pointer;
+}
+
+.ig-caption{
+  font-size:13px;
+  line-height:1.5;
+  color:#222;
+  min-height:40px;
+}
+
+.ig-caption b{
+  margin-right:5px;
+}
+
+.ig-date{
+  color:#999;
+  font-size:10px;
+  margin-top:7px;
+}
+
+/* Replay */
 
 .replay-btn{
-  margin-top:18px;
-  border:1px solid #dcdcdc;
-  background:#ffffff;
-  color:#666666;
+  margin:12px auto 0;
+  border:1px solid #ddd;
+  background:#fff;
+  color:#666;
   font-size:12px;
   padding:9px 18px;
   border-radius:30px;
   cursor:pointer;
   opacity:0;
-  transition:opacity .6s ease .4s;
+  transition:opacity .6s ease;
 }
 
-.replay-btn.show{ opacity:1; }
+.replay-btn.show{
+  opacity:1;
+}
+
+/* ================= HEART ================= */
 
 .heart{
   position:fixed;
@@ -215,9 +334,19 @@ body{
 }
 
 @keyframes rise{
-  from{ transform:translateY(0) rotate(0); opacity:0; }
-  15%{ opacity:.75; }
-  to{ transform:translateY(-110vh) rotate(25deg); opacity:0; }
+  from{
+    transform:translateY(0) rotate(0);
+    opacity:0;
+  }
+
+  15%{
+    opacity:.75;
+  }
+
+  to{
+    transform:translateY(-110vh) rotate(25deg);
+    opacity:0;
+  }
 }
 </style>
 </head>
@@ -226,16 +355,24 @@ body{
 
 <audio id="bgMusic" src="music.mp3" preload="auto"></audio>
 
+<!-- ================= START ================= -->
+
 <div class="stage bg-white active" id="stageStart">
   <p>tekan untuk lanjut</p>
 </div>
+
+<!-- ================= SENTENCE ================= -->
 
 <div class="stage bg-white" id="stageSentence">
   <div class="sentence-text" id="sentenceText"></div>
   <div class="tap-hint">tap untuk lanjut</div>
 </div>
 
+<!-- ================= BLACK ================= -->
+
 <div class="stage bg-black" id="stageBlack"></div>
+
+<!-- ================= LYRICS ================= -->
 
 <div class="stage bg-white" id="stageLyric">
   <div class="lyric-wrap">
@@ -243,189 +380,106 @@ body{
   </div>
 </div>
 
+<!-- ================= INSTAGRAM POST ================= -->
+
 <div class="stage bg-white" id="stagePhoto">
-  <div class="photo-card" id="photoCard">
-    <img id="photoImg" src="" alt="">
+
+  <div class="ig-post">
+
+    <div class="ig-header">
+
+      <div class="profile">
+        O
+      </div>
+
+      <div class="username">
+        opie ♡
+      </div>
+
+    </div>
+
+    <div class="ig-photo-area">
+
+      <img id="photoImg" src="" alt="">
+
+      <div class="photo-arrow" id="photoArrow">
+        ›
+      </div>
+
+      <div class="photo-dots" id="photoDots">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+    </div>
+
+    <div class="ig-bottom">
+
+      <div class="ig-icons">
+        <span id="likeBtn">♡</span>
+        <span>♡</span>
+        <span>↗</span>
+      </div>
+
+      <div class="ig-caption">
+        <b>opie ♡</b>
+        <span id="photoCaption"></span>
+      </div>
+
+      <div class="ig-date">
+        memories ♡
+      </div>
+
+      <button class="replay-btn" id="replayBtn">
+        ↻ ulangi dari awal
+      </button>
+
+    </div>
+
   </div>
-  <p class="photo-caption" id="photoCaption"></p>
-  <div class="photo-dots" id="photoDots">
-    <span></span><span></span><span></span><span></span>
-  </div>
-  <button class="replay-btn" id="replayBtn">↻ ulangi dari awal</button>
+
 </div>
 
 <script>
 
+/* ================= KALIMAT ================= */
+
 const SENTENCES = [
+
   "aku sebenarnya nggak tahu harus mulai dari mana",
+
   "tapi aku cuma mau kamu tahu satu hal",
+
   "kamu itu salah satu hal terbaik yang pernah aku temui",
+
   "makasih udah jadi bagian dari cerita aku, Opie",
+
   "ini bukan cuma pesan biasa..."
+
 ];
+
+
+/* ================= LIRIK ================= */
 
 const LYRIC_LINES = [
+
   "melihatmu bersemi dan bermekaran",
+
   "tawa candamu berikan kekuatan",
+
   "sisa hariku pagi berganti waktu",
+
   "memelukmu",
+
   "kita kan tua dan kehilangan pegangan",
+
   "lihat senyummu memberikan kekuatan",
+
   "sisa nafasku cinta tak kenal"
+
 ];
 
-/* Detik kemunculan tiap baris (dihitung dari saat music.mp3 mulai
-   diputar), diambil dari titik jeda napas antar frasa di lagunya.
-   Geser sendiri angkanya kalau ada yang kurang pas. */
-const LYRIC_TIMES = [1.3, 10.67, 18.44, 27.16, 36.33, 47.57, 54.68];
 
-/* Detik pindah ke halaman foto — menjelang lagu (±65.5 detik) habis. */
-const PHOTO_STAGE_TIME = 63.5;
-
-const PHOTOS = [
-  { src: "https://placehold.co/600x750/f7c8bd/9c4c4c?text=Foto+1", caption: "Ganti dengan keterangan foto pertama" },
-  { src: "https://placehold.co/600x750/f7c8bd/9c4c4c?text=Foto+2", caption: "Ganti dengan keterangan foto kedua" },
-  { src: "https://placehold.co/600x750/f7c8bd/9c4c4c?text=Foto+3", caption: "Ganti dengan keterangan foto ketiga" },
-  { src: "https://placehold.co/600x750/f7c8bd/9c4c4c?text=Foto+4", caption: "Ganti dengan keterangan foto keempat" }
-];
-
-const stageStart    = document.getElementById("stageStart");
-const stageSentence = document.getElementById("stageSentence");
-const sentenceText  = document.getElementById("sentenceText");
-const stageBlack    = document.getElementById("stageBlack");
-const stageLyric    = document.getElementById("stageLyric");
-const lyricLine     = document.getElementById("lyricLine");
-const stagePhoto    = document.getElementById("stagePhoto");
-const photoCard     = document.getElementById("photoCard");
-const photoImg      = document.getElementById("photoImg");
-const photoCaption  = document.getElementById("photoCaption");
-const photoDots     = document.getElementById("photoDots");
-const replayBtn     = document.getElementById("replayBtn");
-const bgMusic       = document.getElementById("bgMusic");
-
-let sentenceIndex = 0;
-let photoIndex = 0;
-
-function goToStage(stageEl){
-  document.querySelectorAll(".stage").forEach(function(s){
-    s.classList.remove("active");
-  });
-  stageEl.classList.add("active");
-}
-
-function spawnHeart(){
-  const h = document.createElement("div");
-  h.className = "heart";
-  h.textContent = Math.random() > 0.5 ? "♡" : "♥";
-  h.style.left = (10 + Math.random() * 80) + "vw";
-  h.style.animationDuration = (5 + Math.random() * 4) + "s";
-  h.style.fontSize = (14 + Math.random() * 13) + "px";
-  document.body.appendChild(h);
-  setTimeout(function(){ h.remove(); }, 9500);
-}
-
-stageStart.addEventListener("click", function(){
-  goToStage(stageSentence);
-  showSentence(0);
-});
-
-function showSentence(i){
-  sentenceText.classList.remove("show");
-  setTimeout(function(){
-    sentenceText.textContent = SENTENCES[i];
-    sentenceText.classList.add("show");
-  }, 280);
-}
-
-stageSentence.addEventListener("click", function(){
-  sentenceIndex++;
-  if(sentenceIndex < SENTENCES.length){
-    showSentence(sentenceIndex);
-  } else {
-    goToStage(stageBlack);
-    setTimeout(function(){
-      goToStage(stageLyric);
-      startLyrics();
-    }, 900);
-  }
-});
-
-function startLyrics(){
-  bgMusic.currentTime = 0;
-  bgMusic.play().catch(function(){});
-
-  LYRIC_TIMES.forEach(function(t, i){
-    setTimeout(function(){
-      lyricLine.classList.remove("show");
-      setTimeout(function(){
-        lyricLine.textContent = LYRIC_LINES[i];
-        lyricLine.classList.add("show");
-      }, 200);
-    }, Math.max(0, t * 1000 - 200));
-  });
-
-  setTimeout(function(){
-    lyricLine.classList.remove("show");
-  }, (PHOTO_STAGE_TIME - 1) * 1000);
-
-  setTimeout(function(){
-    goToStage(stagePhoto);
-    showPhoto(0);
-  }, PHOTO_STAGE_TIME * 1000);
-}
-
-function showPhoto(i){
-  photoIndex = i;
-  photoCard.classList.remove("show");
-  photoCaption.classList.remove("show");
-
-  setTimeout(function(){
-    photoImg.src = PHOTOS[i].src;
-    photoImg.alt = PHOTOS[i].caption;
-    photoCaption.textContent = PHOTOS[i].caption;
-    photoCard.classList.add("show");
-    photoCaption.classList.add("show");
-    photoDots.classList.add("show");
-    updateDots(i);
-    spawnHeart();
-  }, 250);
-
-  if(i === PHOTOS.length - 1){
-    setTimeout(function(){
-      replayBtn.classList.add("show");
-    }, 1000);
-  }
-}
-
-function updateDots(i){
-  const dots = photoDots.querySelectorAll("span");
-  dots.forEach(function(d, idx){
-    d.classList.toggle("on", idx === i);
-  });
-}
-
-stagePhoto.addEventListener("click", function(e){
-  if(e.target === replayBtn) return;
-  if(photoIndex < PHOTOS.length - 1){
-    showPhoto(photoIndex + 1);
-  }
-});
-
-replayBtn.addEventListener("click", function(e){
-  e.stopPropagation();
-  bgMusic.pause();
-  bgMusic.currentTime = 0;
-  sentenceIndex = 0;
-  photoIndex = 0;
-  sentenceText.classList.remove("show");
-  lyricLine.classList.remove("show");
-  photoCard.classList.remove("show");
-  photoCaption.classList.remove("show");
-  photoDots.classList.remove("show");
-  replayBtn.classList.remove("show");
-  goToStage(stageStart);
-});
-
-</script>
-</body>
-    </html>
+/* ================= W
