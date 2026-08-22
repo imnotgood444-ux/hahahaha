@@ -18,7 +18,7 @@ html,body{
   height:100%;
   overflow:hidden;
   font-family:"Plus Jakarta Sans",sans-serif;
-  background:#fff;
+  background:#ffffff;
 }
 
 body{
@@ -56,14 +56,15 @@ body{
 }
 
 .stage.bg-white{
-  background:#fff;
+  background:#ffffff;
 }
 
 .stage.bg-black{
-  background:#000;
+  background:#000000;
 }
 
-/* ================= START ================= */
+
+/* ================= START SCREEN ================= */
 
 #stageStart p{
   color:#9a9a9a;
@@ -72,7 +73,8 @@ body{
   font-weight:500;
 }
 
-/* ================= SENTENCES ================= */
+
+/* ================= SENTENCE SCREEN ================= */
 
 #stageSentence .sentence-text{
   color:#1a1a1a;
@@ -106,6 +108,7 @@ body{
   letter-spacing:.5px;
 }
 
+
 /* ================= BLACK TRANSITION ================= */
 
 #stageBlack::after{
@@ -115,15 +118,25 @@ body{
   height:6px;
 
   border-radius:50%;
-  background:#fff;
 
+  background:#ffffff;
   opacity:.6;
 }
 
-/* ================= LYRIC ================= */
+
+/* ================= LYRIC SCREEN ================= */
 
 #stageLyric{
   overflow:hidden;
+
+  /* LIRIK TIDAK BISA DIGANTI DENGAN TAP */
+  cursor:default;
+
+  user-select:none;
+  -webkit-user-select:none;
+
+  /* Sentuhan layar tidak melakukan apa-apa */
+  touch-action:none;
 }
 
 .lyric-wrap{
@@ -136,7 +149,8 @@ body{
   font-size:9vw;
   font-weight:800;
   line-height:1.05;
-  color:#111;
+
+  color:#111111;
 
   opacity:0;
   transform:scale(.7);
@@ -158,6 +172,7 @@ body{
     font-size:52px;
   }
 }
+
 
 /* ================= PHOTO ================= */
 
@@ -201,6 +216,7 @@ body{
 
 .photo-caption{
   color:#8a8a8a;
+
   font-size:13px;
 
   margin-top:2px;
@@ -249,9 +265,10 @@ body{
   margin-top:18px;
 
   border:1px solid #dcdcdc;
-  background:#fff;
 
-  color:#666;
+  background:#ffffff;
+
+  color:#666666;
 
   font-size:12px;
 
@@ -269,6 +286,7 @@ body{
 .replay-btn.show{
   opacity:1;
 }
+
 
 /* ================= HEART ================= */
 
@@ -309,6 +327,7 @@ body{
 </head>
 
 <body>
+
 
 <!-- ================= MUSIC ================= -->
 
@@ -421,7 +440,7 @@ body{
 <script>
 
 /* =====================================================
-   ISI PESAN
+   KALIMAT
    ===================================================== */
 
 const SENTENCES = [
@@ -440,598 +459,27 @@ const SENTENCES = [
 
 
 /* =====================================================
-   LIRIK
-
-   Masukkan potongan lirik pendek yang ingin ditampilkan.
-   Jangan memasukkan seluruh lirik lagu.
+   LIRIK KAMU
    ===================================================== */
 
 const LYRIC_LINES = [
 
   "melihatmu bersemi dan",
-  
+
   "bermekaran",
-  
+
   "tawa candamu berikan kekuatan",
-  
+
   "sisa hariku pagi berganti waktu",
-  
+
   "memelukmu",
-  
+
   "kita kan tua dan kehilangan",
-  
+
   "pegangan",
-  
+
   "lihat senyummu memberikan",
-  
+
   "kekuatan",
-  
-  "sisa nafasku cinta tak kenal waktu",
-  
-  "menjagamu"
-  
-];
 
-/* =====================================================
-   WAKTU MUNCULNYA LIRIK
-
-   Dalam detik sejak lagu dimulai.
-   ===================================================== */
-
-const LYRIC_TIMES = [
-
-  1.1,
-  6.9,
-  9.8,
-  13.3,
-  16.8,
-  22.0,
-  30.4,
-  32.4,
-  40.2,
-  44.6,
-  47.5
-
-];
-
-
-/* =====================================================
-   FOTO
-   ===================================================== */
-
-const PHOTOS = [
-
-  {
-    src:"foto1.jpg",
-    caption:"untuk Opie ♡"
-  },
-
-  {
-    src:"foto2.jpg",
-    caption:""
-  },
-
-  {
-    src:"foto3.jpg",
-    caption:""
-  },
-
-  {
-    src:"foto4.jpg",
-    caption:""
-  }
-
-];
-
-
-/* =====================================================
-   VARIABLE
-   ===================================================== */
-
-let sentenceIndex = -1;
-let lyricIndex = -1;
-let photoIndex = -1;
-
-let lyricEndTimer = null;
-
-
-/* =====================================================
-   ELEMENT
-   ===================================================== */
-
-const stages = {
-
-  start:
-    document.getElementById("stageStart"),
-
-  sentence:
-    document.getElementById("stageSentence"),
-
-  black:
-    document.getElementById("stageBlack"),
-
-  lyric:
-    document.getElementById("stageLyric"),
-
-  photo:
-    document.getElementById("stagePhoto")
-
-};
-
-
-const sentenceText =
-  document.getElementById("sentenceText");
-
-const lyricLine =
-  document.getElementById("lyricLine");
-
-const photoCard =
-  document.getElementById("photoCard");
-
-const photoImg =
-  document.getElementById("photoImg");
-
-const photoCaption =
-  document.getElementById("photoCaption");
-
-const photoDots =
-  document.querySelectorAll("#photoDots span");
-
-const replayBtn =
-  document.getElementById("replayBtn");
-
-const bgMusic =
-  document.getElementById("bgMusic");
-
-
-/* =====================================================
-   GANTI STAGE
-   ===================================================== */
-
-function showStage(name){
-
-  Object.values(stages).forEach(stage => {
-
-    stage.classList.remove("active");
-
-  });
-
-  stages[name].classList.add("active");
-
-}
-
-
-/* =====================================================
-   HATI
-   ===================================================== */
-
-function spawnHearts(){
-
-  for(let i = 0; i < 6; i++){
-
-    setTimeout(() => {
-
-      const heart =
-        document.createElement("div");
-
-      heart.className = "heart";
-
-      heart.textContent =
-        Math.random() > .5 ? "♡" : "♥";
-
-      heart.style.left =
-        (10 + Math.random() * 80) + "vw";
-
-      heart.style.animationDuration =
-        (5 + Math.random() * 4) + "s";
-
-      heart.style.fontSize =
-        (14 + Math.random() * 13) + "px";
-
-      document.body.appendChild(heart);
-
-      setTimeout(() => {
-
-        heart.remove();
-
-      },9500);
-
-    },i * 180);
-
-  }
-
-}
-
-
-/* =====================================================
-   KALIMAT
-   ===================================================== */
-
-function nextSentence(){
-
-  sentenceIndex++;
-
-  /* Semua kalimat selesai */
-
-  if(sentenceIndex >= SENTENCES.length){
-
-    showStage("black");
-
-    setTimeout(() => {
-
-      showStage("lyric");
-
-      startLyricSync();
-
-    },1400);
-
-    return;
-
-  }
-
-
-  sentenceText.classList.remove("show");
-
-
-  setTimeout(() => {
-
-    sentenceText.textContent =
-      SENTENCES[sentenceIndex];
-
-    void sentenceText.offsetWidth;
-
-    sentenceText.classList.add("show");
-
-  },250);
-
-}
-
-
-/* =====================================================
-   TAMPILKAN LIRIK
-   ===================================================== */
-
-function showLyricLine(index){
-
-  if(index < 0 || index >= LYRIC_LINES.length){
-
-    return;
-
-  }
-
-  lyricLine.classList.remove("show");
-
-
-  setTimeout(() => {
-
-    lyricLine.textContent =
-      LYRIC_LINES[index];
-
-    void lyricLine.offsetWidth;
-
-    lyricLine.classList.add("show");
-
-  },150);
-
-}
-
-
-/* =====================================================
-   SINKRONISASI LIRIK DENGAN MUSIK
-   ===================================================== */
-
-function startLyricSync(){
-
-  lyricIndex = -1;
-
-  bgMusic.currentTime = 0;
-
-  bgMusic.volume = 0.6;
-
-
-  /* Mulai musik */
-
-  bgMusic.play().catch(() => {
-
-    console.log("Browser menolak autoplay.");
-
-  });
-
-
-  /* Pantau waktu lagu */
-
-  bgMusic.addEventListener(
-    "timeupdate",
-    onLyricTimeUpdate
-  );
-
-
-  /* Kalau lagu selesai */
-
-  bgMusic.addEventListener(
-    "ended",
-    goToPhotosFromLyric,
-    {once:true}
-  );
-
-}
-
-
-/* =====================================================
-   CEK WAKTU LIRIK
-   ===================================================== */
-
-function onLyricTimeUpdate(){
-
-  const currentTime =
-    bgMusic.currentTime;
-
-  let index = -1;
-
-
-  for(
-    let i = 0;
-    i < LYRIC_TIMES.length;
-    i++
-  ){
-
-    if(
-      currentTime >= LYRIC_TIMES[i]
-    ){
-
-      index = i;
-
-    }
-
-  }
-
-
-  /* Lirik berubah */
-
-  if(
-    index !== lyricIndex &&
-    index >= 0 &&
-    index < LYRIC_LINES.length
-  ){
-
-    lyricIndex = index;
-
-    showLyricLine(index);
-
-  }
-
-
-  /* Setelah lirik terakhir */
-
-  if(
-    index === LYRIC_LINES.length - 1 &&
-    !lyricEndTimer
-  ){
-
-    lyricEndTimer = setTimeout(
-      goToPhotosFromLyric,
-      3200
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   DARI LIRIK KE FOTO
-   ===================================================== */
-
-function goToPhotosFromLyric(){
-
-  bgMusic.removeEventListener(
-    "timeupdate",
-    onLyricTimeUpdate
-  );
-
-
-  if(lyricEndTimer){
-
-    clearTimeout(lyricEndTimer);
-
-    lyricEndTimer = null;
-
-  }
-
-
-  bgMusic.pause();
-
-  nextPhoto();
-
-}
-
-
-/* =====================================================
-   DOT FOTO
-   ===================================================== */
-
-function updateDots(){
-
-  photoDots.forEach((dot,index) => {
-
-    dot.classList.toggle(
-      "on",
-      index === photoIndex
-    );
-
-  });
-
-}
-
-
-/* =====================================================
-   FOTO BERIKUTNYA
-   ===================================================== */
-
-function nextPhoto(){
-
-  photoIndex++;
-
-
-  /* Foto pertama */
-
-  if(photoIndex === 0){
-
-    showStage("photo");
-
-    spawnHearts();
-
-  }
-
-
-  /* Semua foto selesai */
-
-  if(photoIndex >= PHOTOS.length){
-
-    replayBtn.classList.add("show");
-
-    return;
-
-  }
-
-
-  photoCard.classList.remove("show");
-
-  photoCaption.classList.remove("show");
-
-
-  setTimeout(() => {
-
-    photoImg.src =
-      PHOTOS[photoIndex].src;
-
-    photoCaption.textContent =
-      PHOTOS[photoIndex].caption || "";
-
-
-    updateDots();
-
-
-    document
-      .getElementById("photoDots")
-      .classList.add("show");
-
-
-    photoCard.classList.add("show");
-
-    photoCaption.classList.add("show");
-
-  },250);
-
-}
-
-
-/* =====================================================
-   START
-   ===================================================== */
-
-stages.start.addEventListener(
-  "click",
-  () => {
-
-    showStage("sentence");
-
-    nextSentence();
-
-  }
-);
-
-
-/* =====================================================
-   KALIMAT = TAP UNTUK LANJUT
-   ===================================================== */
-
-stages.sentence.addEventListener(
-  "click",
-  nextSentence
-);
-
-
-/* =====================================================
-   FOTO = TAP UNTUK FOTO BERIKUTNYA
-   ===================================================== */
-
-stages.photo.addEventListener(
-  "click",
-  (event) => {
-
-    if(
-      event.target.closest(".replay-btn")
-    ){
-
-      return;
-
-    }
-
-
-    if(
-      photoIndex < PHOTOS.length
-    ){
-
-      nextPhoto();
-
-    }
-
-  }
-);
-
-
-/* =====================================================
-   ULANGI
-   ===================================================== */
-
-replayBtn.addEventListener(
-  "click",
-  (event) => {
-
-    event.stopPropagation();
-
-
-    sentenceIndex = -1;
-
-    lyricIndex = -1;
-
-    photoIndex = -1;
-
-
-    if(lyricEndTimer){
-
-      clearTimeout(lyricEndTimer);
-
-      lyricEndTimer = null;
-
-    }
-
-
-    lyricLine.classList.remove("show");
-
-    photoCard.classList.remove("show");
-
-    photoCaption.classList.remove("show");
-
-    document
-      .getElementById("photoDots")
-      .classList.remove("show");
-
-    replayBtn.classList.remove("show");
-
-
-    bgMusic.pause();
-
-    bgMusic.currentTime = 0;
-
-
-    showStage("start");
-
-  }
-);
-
-</script>
-
-</body>
-  </html>
+  "sisa nafasku cinta tak
