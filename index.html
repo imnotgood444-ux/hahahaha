@@ -64,7 +64,7 @@ body{
 }
 
 
-/* ================= START SCREEN ================= */
+/* ================= START ================= */
 
 #stageStart p{
   color:#9a9a9a;
@@ -74,7 +74,7 @@ body{
 }
 
 
-/* ================= SENTENCE SCREEN ================= */
+/* ================= SENTENCE ================= */
 
 #stageSentence .sentence-text{
   color:#1a1a1a;
@@ -124,18 +124,18 @@ body{
 }
 
 
-/* ================= LYRIC SCREEN ================= */
+/* ================= LYRIC ================= */
 
 #stageLyric{
   overflow:hidden;
 
-  /* LIRIK TIDAK BISA DIGANTI DENGAN TAP */
+  /* Tidak bisa diklik untuk mengganti lirik */
   cursor:default;
 
   user-select:none;
   -webkit-user-select:none;
 
-  /* Sentuhan layar tidak melakukan apa-apa */
+  /* Sentuhan tidak memengaruhi lirik */
   touch-action:none;
 }
 
@@ -265,7 +265,6 @@ body{
   margin-top:18px;
 
   border:1px solid #dcdcdc;
-
   background:#ffffff;
 
   color:#666666;
@@ -393,7 +392,7 @@ body{
 </div>
 
 
-<!-- ================= 5. PHOTOS ================= -->
+<!-- ================= 5. PHOTO ================= -->
 
 <div
   class="stage bg-white"
@@ -440,7 +439,7 @@ body{
 <script>
 
 /* =====================================================
-   KALIMAT
+   KALIMAT PEMBUKA
    ===================================================== */
 
 const SENTENCES = [
@@ -459,7 +458,7 @@ const SENTENCES = [
 
 
 /* =====================================================
-   LIRIK KAMU
+   LIRIK
    ===================================================== */
 
 const LYRIC_LINES = [
@@ -482,4 +481,4 @@ const LYRIC_LINES = [
 
   "kekuatan",
 
-  "sisa nafasku cinta tak
+  "sisa nafasku cinta tak kenal
