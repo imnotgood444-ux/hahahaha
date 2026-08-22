@@ -129,13 +129,11 @@ body{
 #stageLyric{
   overflow:hidden;
 
-  /* Tidak bisa diklik untuk mengganti lirik */
   cursor:default;
 
   user-select:none;
   -webkit-user-select:none;
 
-  /* Sentuhan tidak memengaruhi lirik */
   touch-action:none;
 }
 
@@ -460,9 +458,6 @@ const SENTENCES = [
 
 /* =====================================================
    LIRIK
-   (disalin apa adanya dari file kamu — kalau ada baris
-   lanjutan yang terputus saat kamu kirim ke sini,
-   tolong lengkapi sendiri array ini)
    ===================================================== */
 
 const LYRIC_LINES = [
@@ -484,15 +479,17 @@ const LYRIC_LINES = [
 ];
 
 /* Detik kemunculan tiap baris di atas (dihitung dari saat
-   music.mp3 mulai diputar), hasil analisis titik-titik energi
-   vokal/nada pada file musikmu. Kalau merasa ada baris yang
-   muncul kurang pas, angka di bawah ini bisa kamu geser sendiri
-   (dalam detik, boleh pakai koma desimal). */
-const LYRIC_TIMES = [1.2, 7.1, 14.04, 22.64, 28.89, 35.83, 43.58];
+   music.mp3 mulai diputar). Diambil dari titik-titik jeda napas
+   antar frasa pada lagunya — baris pertama "melihatmu..." muncul
+   tepat setelah intro instrumental singkat selesai dan nyanyian
+   dimulai. Kalau merasa ada baris yang muncul kurang pas, angka
+   di bawah ini bisa kamu geser sendiri (dalam detik, boleh pakai
+   koma desimal). */
+const LYRIC_TIMES = [1.2, 8.57, 16.61, 24.91, 31.99, 40.08, 47.33];
 
-/* Detik saat halaman pindah dari lirik ke foto — diset sesaat
-   setelah bagian puncak/reff terakhir lagu berbunyi (±47.7s). */
-const PHOTO_STAGE_TIME = 49.5;
+/* Detik saat halaman pindah dari lirik ke foto — diset menjelang
+   lagu benar-benar habis (durasi lagu ±51.6 detik). */
+const PHOTO_STAGE_TIME = 50.5;
 
 
 /* =====================================================
@@ -620,10 +617,6 @@ function startLyrics(){
        lagu tetap akan jalan karena ini dipicu dari tap user. */
   });
 
-  /* Setiap baris lirik muncul tepat di titik waktu (detik)
-     berikut, dihitung dari awal lagu diputar. Titik-titik ini
-     diambil dari analisis energi/nada music.mp3 (bukan interval
-     tetap), supaya kemunculannya terasa menyatu dengan lagunya. */
   LYRIC_TIMES.forEach(function(t, i){
     setTimeout(function(){
       lyricLine.classList.remove("show");
@@ -634,8 +627,6 @@ function startLyrics(){
     }, Math.max(0, t * 1000 - 200));
   });
 
-  /* Baris terakhir memudar tepat sebelum bagian puncak lagu
-     selesai berbunyi, lalu lanjut ke halaman foto. */
   setTimeout(function(){
     lyricLine.classList.remove("show");
   }, (PHOTO_STAGE_TIME - 1) * 1000);
@@ -717,4 +708,4 @@ replayBtn.addEventListener("click", function(e){
 
 </script>
 </body>
-  </html>
+</html>
