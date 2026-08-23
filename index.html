@@ -318,9 +318,11 @@ finalNote.className = "final-note";
 finalNote.id = "finalNote";
 finalNote.innerHTML =
   '<div class="tape"></div>' +
-  '<p>Setiap foto di papan ini cuma sebagian kecil dari ' +
-  'banyaknya alasan kenapa aku bersyukur mengenalmu, Opie. ' +
-  'Makasih udah jadi bagian dari cerita ini.</p>' +
+  '<p>Tanpa kamu tahu,<br>' +
+  'tanpa kamu sadari,<br>' +
+  'aku banyak berusaha<br>' +
+  'hanya untuk sekadar<br>' +
+  'tertangkap oleh matamu</p>' +
   '<p class="sign">— Gipa ♡</p>' +
   '<button class="replay-btn" id="replayBtn">↻ ulangi</button>';
 board.appendChild(finalNote);
@@ -346,6 +348,17 @@ function showStep(i){
 }
 
 showStep(0);
+
+/* Coba putar musik langsung begitu halaman terbuka.
+   Kalau browser memblokir autoplay bersuara, musik akan
+   otomatis mulai begitu ada tap pertama (lihat handler di
+   bawah) — ini fallback wajib karena sebagian besar browser
+   memang tidak mengizinkan suara diputar sebelum ada interaksi. */
+bgMusic.play().then(function(){
+  musicStarted = true;
+}).catch(function(){
+  musicStarted = false;
+});
 
 board.addEventListener("click", function(e){
   if(e.target.closest(".replay-btn")) return;
