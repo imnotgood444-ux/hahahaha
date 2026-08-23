@@ -27,7 +27,7 @@ body{
   background:#c69a6d;
 }
 
-/* ================= CORKBOARD (scrollable) ================= */
+/* ================= CORKBOARD ================= */
 
 .board{
   position:relative;
@@ -57,7 +57,7 @@ body{
   display:none;
 }
 
-/* ================= HINT (fixed) ================= */
+/* ================= HINT ================= */
 
 .hint{
   position:fixed;
@@ -112,7 +112,7 @@ body{
   letter-spacing:.5px;
 }
 
-/* ================= POLAROID (besar, alur vertikal) ================= */
+/* ================= POLAROID ================= */
 
 .polaroid{
   flex-shrink:0;
@@ -131,6 +131,7 @@ body{
   padding-top:0;
   padding-bottom:0;
   overflow:hidden;
+
   transition:
     opacity .5s ease,
     transform .55s cubic-bezier(.2,.9,.25,1.25);
@@ -143,9 +144,17 @@ body{
   margin:0;
 }
 
-.polaroid:nth-child(odd){ transform:scale(.4) rotate(0deg); }
-.polaroid.show:nth-child(odd){ transform:scale(1) rotate(-2.5deg); }
-.polaroid.show:nth-child(even){ transform:scale(1) rotate(2.5deg); }
+.polaroid:nth-child(odd){
+  transform:scale(.4) rotate(0deg);
+}
+
+.polaroid.show:nth-child(odd){
+  transform:scale(1) rotate(-2.5deg);
+}
+
+.polaroid.show:nth-child(even){
+  transform:scale(1) rotate(2.5deg);
+}
 
 .polaroid img{
   width:100%;
@@ -171,74 +180,6 @@ body{
   transform:translateX(-50%) rotate(4deg);
 }
 
-/* ================= FINAL NOTE ================= */
-
-.final-note{
-  flex-shrink:0;
-  width:86vw;
-  max-width:340px;
-  background:#fffdf6;
-  padding:26px 24px;
-  border-radius:3px;
-  box-shadow:0 20px 45px #00000050;
-  text-align:left;
-  position:relative;
-
-  opacity:0;
-  height:0;
-  padding-top:0;
-  padding-bottom:0;
-  overflow:hidden;
-  transform:scale(.4) rotate(-3deg);
-  transition:
-    opacity .6s ease,
-    transform .6s cubic-bezier(.2,.9,.25,1.2);
-}
-
-.final-note.show{
-  opacity:1;
-  height:auto;
-  padding:26px 24px;
-  transform:scale(1) rotate(-1.5deg);
-}
-
-.final-note .tape{
-  position:absolute;
-  top:-13px;
-  left:50%;
-  transform:translateX(-50%) rotate(2deg);
-  width:76px;
-  height:24px;
-  background:#ffffffb5;
-  border:1px solid #ffffff80;
-}
-
-.final-note p{
-  font-family:"Patrick Hand",cursive;
-  font-size:18px;
-  line-height:1.55;
-  color:#2c2013;
-  margin:0 0 14px;
-}
-
-.final-note .sign{
-  text-align:right;
-  font-weight:700;
-}
-
-.replay-btn{
-  display:block;
-  margin:12px auto 0;
-  border:1px solid #8a705055;
-  background:transparent;
-  color:#6b5238;
-  font-size:11px;
-  padding:9px 20px;
-  border-radius:20px;
-  cursor:pointer;
-  font-family:"Plus Jakarta Sans",sans-serif;
-}
-
 /* ================= HEART ================= */
 
 .heart{
@@ -253,9 +194,19 @@ body{
 }
 
 @keyframes rise{
-  from{ transform:translateY(0) rotate(0); opacity:0; }
-  15%{ opacity:.8; }
-  to{ transform:translateY(-105vh) rotate(20deg); opacity:0; }
+  from{
+    transform:translateY(0) rotate(0);
+    opacity:0;
+  }
+
+  15%{
+    opacity:.8;
+  }
+
+  to{
+    transform:translateY(-105vh) rotate(20deg);
+    opacity:0;
+  }
 }
 </style>
 </head>
@@ -278,11 +229,7 @@ body{
 
 <script>
 
-/* =====================================================
-   FOTO — ganti src & caption sesuai foto & momen aslimu.
-   Tinggal tambah/kurangi objek di array ini kalau mau
-   jumlah fotonya beda dari 10.
-   ===================================================== */
+/* ================= FOTO ================= */
 
 const PHOTOS = [
   "foto1.jpg",
@@ -301,93 +248,115 @@ const board = document.getElementById("board");
 const hint = document.getElementById("hint");
 const titleCard = document.getElementById("titleCard");
 
-/* Bangun elemen polaroid dari array PHOTOS */
+/* ================= BUAT POLAROID ================= */
+
 const polaroidEls = PHOTOS.map(function(src){
+
   const el = document.createElement("div");
+
   el.className = "polaroid";
+
   el.innerHTML =
     '<div class="tape"></div>' +
     '<img src="' + src + '" alt="">';
+
   board.appendChild(el);
+
   return el;
 });
 
-/* Catatan penutup, ditambahkan setelah semua foto */
-const finalNote = document.createElement("div");
-finalNote.className = "final-note";
-finalNote.id = "finalNote";
-finalNote.innerHTML =
-  '<div class="tape"></div>' +
-  '<p>Tanpa kamu tahu,<br>' +
-  'tanpa kamu sadari,<br>' +
-  'aku banyak berusaha<br>' +
-  'hanya untuk sekadar<br>' +
-  'tertangkap oleh matamu</p>' +
-  '<p class="sign">— Gipa ♡</p>' +
-  '<button class="replay-btn" id="replayBtn">↻ ulangi</button>';
-board.appendChild(finalNote);
+/* ================= LANGKAH ================= */
 
-const steps = [titleCard].concat(polaroidEls, [finalNote]);
+const steps = [titleCard].concat(polaroidEls);
+
 let step = 0;
 
 const bgMusic = document.getElementById("bgMusic");
 let musicStarted = false;
 
+/* ================= TAMPILKAN LANGKAH ================= */
+
 function showStep(i){
+
   const el = steps[i];
+
   el.classList.add("show");
 
   requestAnimationFrame(function(){
-    el.scrollIntoView({ behavior:"smooth", block:"center" });
+
+    el.scrollIntoView({
+      behavior:"smooth",
+      block:"center"
+    });
+
   });
 
-  if(i > 0) spawnHeart();
+  if(i > 0){
+    spawnHeart();
+  }
+
+  /* Setelah foto terakhir, hint menghilang */
   if(i === steps.length - 1){
     hint.style.opacity = "0";
   }
 }
 
+/* ================= MULAI ================= */
+
 showStep(0);
 
-board.addEventListener("click", function(e){
-  if(e.target.closest(".replay-btn")) return;
+/* ================= KLIK BOARD ================= */
 
+board.addEventListener("click", function(){
+
+  /* Mulai musik saat pertama kali layar disentuh */
   if(!musicStarted){
+
     bgMusic.play().catch(function(){});
+
     musicStarted = true;
   }
 
+  /* Lanjut ke foto berikutnya */
   if(step < steps.length - 1){
+
     step++;
+
     showStep(step);
   }
+
 });
 
-board.addEventListener("click", function(e){
-  if(!e.target.closest(".replay-btn")) return;
-
-  bgMusic.pause();
-  bgMusic.currentTime = 0;
-  musicStarted = false;
-
-  steps.forEach(function(s){ s.classList.remove("show"); });
-  step = 0;
-  hint.style.opacity = "1";
-  board.scrollTo({ top:0, behavior:"smooth" });
-  showStep(0);
-});
+/* ================= HATI ================= */
 
 function spawnHeart(){
+
   const h = document.createElement("div");
+
   h.className = "heart";
-  h.textContent = Math.random() > 0.5 ? "♡" : "♥";
-  h.style.left = (10 + Math.random() * 80) + "vw";
-  h.style.animationDuration = (5 + Math.random() * 4) + "s";
-  h.style.fontSize = (14 + Math.random() * 13) + "px";
+
+  h.textContent =
+    Math.random() > 0.5 ? "♡" : "♥";
+
+  h.style.left =
+    (10 + Math.random() * 80) + "vw";
+
+  h.style.animationDuration =
+    (5 + Math.random() * 4) + "s";
+
+  h.style.fontSize =
+    (14 + Math.random() * 13) + "px";
+
   document.body.appendChild(h);
-  setTimeout(function(){ h.remove(); }, 9500);
+
+  setTimeout(function(){
+
+    h.remove();
+
+  },9500);
 }
 
 </script>
+
 </body>
 </html>
