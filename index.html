@@ -257,12 +257,38 @@ body{
   15%{ opacity:.8; }
   to{ transform:translateY(-105vh) rotate(20deg); opacity:0; }
 }
+
+/* ================= OPENING SCREEN ================= */
+
+#openScreen{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  background:#ffffff;
+  color:#111111;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:"Plus Jakarta Sans",sans-serif;
+  font-size:23px;
+  font-weight:600;
+  letter-spacing:.3px;
+  cursor:pointer;
+  transition:opacity .6s ease;
+}
+
+#openScreen.hide{
+  opacity:0;
+  pointer-events:none;
+}
 </style>
 </head>
 
 <body>
 
 <audio id="bgMusic" src="music.mp3" preload="auto" loop></audio>
+
+<div id="openScreen">assalamualaikum</div>
 
 <div class="board" id="board">
 
@@ -349,24 +375,17 @@ function showStep(i){
 
 showStep(0);
 
-/* Coba putar musik langsung begitu halaman terbuka.
-   Kalau browser memblokir autoplay bersuara, musik akan
-   otomatis mulai begitu ada tap pertama (lihat handler di
-   bawah) — ini fallback wajib karena sebagian besar browser
-   memang tidak mengizinkan suara diputar sebelum ada interaksi. */
-bgMusic.play().then(function(){
+const openScreen = document.getElementById("openScreen");
+
+openScreen.addEventListener("click", function(){
+  openScreen.classList.add("hide");
+  bgMusic.currentTime = 0;
+  bgMusic.play().catch(function(){});
   musicStarted = true;
-}).catch(function(){
-  musicStarted = false;
 });
 
 board.addEventListener("click", function(e){
   if(e.target.closest(".replay-btn")) return;
-
-  if(!musicStarted){
-    bgMusic.play().catch(function(){});
-    musicStarted = true;
-  }
 
   if(step < steps.length - 1){
     step++;
@@ -386,6 +405,8 @@ board.addEventListener("click", function(e){
   hint.style.opacity = "1";
   board.scrollTo({ top:0, behavior:"smooth" });
   showStep(0);
+
+  openScreen.classList.remove("hide");
 });
 
 function spawnHeart(){
